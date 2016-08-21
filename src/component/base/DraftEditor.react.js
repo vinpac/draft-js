@@ -353,10 +353,7 @@ class DraftEditor extends React.Component {
     // Put the cursor back where it was before the blur.
     if (!alreadyHasFocus) {
       this.update(
-        EditorState.forceSelection(
-          editorState,
-          editorState.getSelection()
-        )
+        EditorState.moveFocusToEnd(editorState)
       );
     }
   }

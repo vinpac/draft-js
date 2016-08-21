@@ -17,6 +17,7 @@ var EditorState = require('EditorState');
 function editOnFocus(e: SyntheticFocusEvent): void {
   var editorState = this.props.editorState;
   var currentSelection = editorState.getSelection();
+
   if (currentSelection.getHasFocus()) {
     return;
   }
@@ -30,11 +31,7 @@ function editOnFocus(e: SyntheticFocusEvent): void {
   // moves the cursor back to the beginning of the editor, so we force the
   // selection here instead of simply accepting it in order to preserve the
   // old cursor position. See https://crbug.com/540004.
-  if (currentSelection.isCollapsed()) {
-    this.update(EditorState.forceSelection(editorState, selection));
-  } else {
-    this.update(EditorState.acceptSelection(editorState, selection));
-  }
+  this.update(EditorState.acceptSelection(editorState, selection));
 }
 
 module.exports = editOnFocus;
