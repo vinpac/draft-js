@@ -30,7 +30,11 @@ function editOnFocus(e: SyntheticFocusEvent): void {
   // moves the cursor back to the beginning of the editor, so we force the
   // selection here instead of simply accepting it in order to preserve the
   // old cursor position. See https://crbug.com/540004.
-  this.update(EditorState.forceSelection(editorState, selection));
+  if (currentSelection.isCollapsed()) {
+    this.update(EditorState.forceSelection(editorState, selection));
+  } else {
+    this.update(EditorState.acceptSelection(editorState, selection));
+  }
 }
 
 module.exports = editOnFocus;
